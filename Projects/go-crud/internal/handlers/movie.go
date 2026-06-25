@@ -38,14 +38,19 @@ func NewMovieHandler(
 
 
 func (h *MovieHandler) GetMovies(w http.ResponseWriter, r *http.Request){
+	movies, err:= h.service.GetMovies()
+
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+	
 	w.Header().Set(
 		"Content-Type",
 		"application/json",
 	)
 	
-	json.NewEncoder(w).Encode(
-		h.service.GetMovies(),
-	)
+	json.NewEncoder(w).Encode(movies)
 }
 
 
@@ -79,7 +84,11 @@ func(h *MovieHandler) Create(w http.ResponseWriter, r *http.Request){
 		http.Error(w, "Invalid Title", http.StatusBadRequest)
 		return
 	}
-	movie := h.service.Create(req)
+	movie, err := h.service.Create(req)
+	if err != nil {
+        http.Error(w, "Internal server error", http.StatusInternalServerError)
+        return
+    }
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(movie)
