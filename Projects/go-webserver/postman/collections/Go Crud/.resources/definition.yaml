@@ -1,0 +1,4 @@
+$kind: collection
+name: Go Crud
+variables:
+  base_url: ""

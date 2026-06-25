@@ -1,0 +1,5 @@
+$kind: http-request
+name: Delete Movie
+url: "{{base_url}}/movies/1"
+method: DELETE
+order: 4410147221037952

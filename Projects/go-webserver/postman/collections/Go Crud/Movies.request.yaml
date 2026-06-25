@@ -1,0 +1,5 @@
+$kind: http-request
+name: Movies
+url: "{{base_url}}/movies"
+method: GET
+order: 3706288013183734
