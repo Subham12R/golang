@@ -1,5 +1,5 @@
 $kind: http-request
 name: Delete Movie
-url: "{{base_url}}/movies/1"
+url: http://localhost:8080/movies/3
 method: DELETE
 order: 4410147221037952
