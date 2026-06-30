@@ -1,10 +1,16 @@
 package main
 
 import (
-	"go-auth/internal/config"
-	"go-auth/internal/database"
 	"log"
 	"net/http"
+
+	"go-auth/internal/config"
+	"go-auth/internal/database"
+	"go-auth/internal/handlers"
+	"go-auth/internal/middleware"
+	"go-auth/internal/repositories"
+	"go-auth/internal/routes"
+	"go-auth/internal/services"
 )
 
 func main() {
@@ -18,18 +24,25 @@ func main() {
 		log.Fatal(err)
 	}
 	defer db.Close()
+
+	userRepo := repositories.NewUserRepository(db)
+	refreshRepo := repositories.NewRefreshTokenRepository(db)
+
+	authService := services.NewAuthService(
+		userRepo,
+		refreshRepo,
+		cfg.JWTSecret,
+	)
+
+	authHandler := handlers.NewAuthHandler(authService)
+
 	mux := http.NewServeMux()
 
-	mux.HandleFunc(
-		"GET /health",
-		func(w http.ResponseWriter, r *http.Request) {
-			w.Write([]byte("OK"))
-		},
-	)
+	routes.RegisterRoutes(mux, authHandler, cfg.JWTSecret)
 
 	log.Printf("Server running on http://localhost:%s", cfg.Port)
 
-	if err := http.ListenAndServe(":"+cfg.Port, mux); err != nil {
+	if err := http.ListenAndServe(":"+cfg.Port, middleware.Logger(mux)); err != nil {
 		log.Fatal(err)
 	}
 }

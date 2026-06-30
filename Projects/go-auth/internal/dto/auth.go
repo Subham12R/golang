@@ -7,7 +7,7 @@ type RegisterRequest struct {
 }	
 
 type LoginRequest	struct {
-	Email 		string	`json:"name"`
+	Email 		string	`json:"email"`
 	Password 	string  `json:"password"`
 }
 
@@ -17,9 +17,14 @@ type UserResponse struct {
 	Email 	string 	`json:"email"`
 }
 
+type RefreshRequest struct {
+	RefreshToken string `json:"refreshToken"`
+}
+
 type AuthResponse struct {
 	User 			UserResponse 	`json:"user"`
 	AccessToken 	string 			`json:"accessToken"`
+	RefreshToken	string			`json:"refreshToken"`
 	ExpiresIn		int				`json:"expiresIn"`
 }
 

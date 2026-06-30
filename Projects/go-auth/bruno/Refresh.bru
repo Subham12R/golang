@@ -1,0 +1,29 @@
+meta {
+  name: Refresh
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/refresh
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "refreshToken": "{{refreshToken}}"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+  refreshToken: 9fbeb53f6a6d9ad9274d464df63594a716abdce19d50344fab26ed70d57ef26d
+}
+
+script:post-response {
+  if (res.status === 200) {
+    bru.setEnvVar("accessToken", res.body.accessToken);
+    bru.setEnvVar("refreshToken", res.body.refreshToken);
+  }
+}

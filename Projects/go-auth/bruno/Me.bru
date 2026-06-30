@@ -1,0 +1,20 @@
+meta {
+  name: Me
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+  accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTc4MjgwOTc1NiwiaWF0IjoxNzgyODA4ODU2fQ.N0Aj5QEVdw-DRvxqbSj8G2Hzz4w56hFJ5Ith6u8kk1g
+}

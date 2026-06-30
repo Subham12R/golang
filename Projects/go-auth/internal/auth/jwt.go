@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"go-auth/internal/models"
 	"time"
 
@@ -31,6 +33,16 @@ func GenerateAccessToken(user *models.User,secret string) (string, error) {
 		claims,
 	)
 	return token.SignedString([]byte(secret))
+}
+
+
+
+func GenerateRefreshToken() (string, error) {
+	b := make([]byte, 32)
+	if _, err := rand.Read(b); err != nil {
+		return "", err
+	}
+	return hex.EncodeToString(b), nil
 }
 
 func ValidateAccessToken(tokenString, secret string) (*Claims, error) {

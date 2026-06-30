@@ -1,0 +1,22 @@
+meta {
+  name: Logout
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/logout
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "refreshToken": "{{refreshToken}}"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+  refreshToken: 9fbeb53f6a6d9ad9274d464df63594a716abdce19d50344fab26ed70d57ef26d
+}
