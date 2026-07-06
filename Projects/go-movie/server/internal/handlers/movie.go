@@ -2,17 +2,18 @@ package handlers
 
 import (
 	"encoding/json"
+	"go-movie-server/internal/services"
 	"go-movie-server/internal/store"
 	"net/http"
-	"strconv"
 )
 
 type MovieHandler struct {
-	store *store.SeatStore
+	store          *store.SeatStore
+	bookingService *services.BookingService
 }
 
-func NewMovieHandler(store *store.SeatStore) *MovieHandler {
-	return &MovieHandler{store: store}
+func NewMovieHandler(store *store.SeatStore, bookingService *services.BookingService) *MovieHandler {
+	return &MovieHandler{store: store, bookingService: bookingService}
 }
 
 func (h *MovieHandler) GetMovies(w http.ResponseWriter, r *http.Request) {
@@ -54,27 +55,19 @@ func (h *MovieHandler) GetAvailableSeats(w http.ResponseWriter, r *http.Request)
 }
 
 func (h *MovieHandler) HandleBookSeat(w http.ResponseWriter, r *http.Request) {
-	query := r.URL.Query()
-	screenID := query.Get("screen_id")
-	seatID := query.Get("seat_id")
-	// Parse userID from query param (MVP: no auth middleware yet)
-	userIDStr := r.URL.Query().Get("user_id")
-	userID, err := strconv.Atoi(userIDStr)
-	if err != nil {
-		http.Error(w, `{"error": "valid user_id is required"}`, http.StatusBadRequest)
+	var req services.BookingRequest
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	if screenID == "" || seatID == "" {
-		http.Error(w, `{"error": "screen_id and seat_id are required"}`, http.StatusBadRequest)
+	booking, err := h.bookingService.Book(req)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	booking, err := h.store.BookSeat(screenID, seatID, r.URL.Query().Get("show_id"), userID)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusConflict)
-		return
-	}
 
 	response, _ := json.MarshalIndent(booking, "", "  ")
 	w.Header().Set("Content-Type", "application/json")
