@@ -14,6 +14,9 @@ func main() {
 	s := store.NewSeatStore()
 
 	s.InitializeScreen("SCR-1", 8, 10)
+	s.InitializeScreen("SCR-2", 8, 10)
+	s.InitializeScreen("SCR-3", 8, 10)
+	store.SeedDemoData(s)
 
 	bookingService := services.NewBookingService(s)
 	movieHandler := handlers.NewMovieHandler(s, bookingService)
@@ -39,7 +42,8 @@ func main() {
 
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/movies", movieHandler.GetMovies)
-		r.Get("/seats", movieHandler.GetAvailableSeats)	
+		r.Get("/movies/{movieID}/shows", movieHandler.GetShowtimes)
+		r.Get("/seats", movieHandler.GetAvailableSeats)
 		r.Post("/bookings", movieHandler.HandleBookSeat)
 		r.Get("/bookings/{bookingID}", movieHandler.HandleGetBooking)
 		r.Delete("/bookings/{bookingID}", movieHandler.HandleCancelBooking)

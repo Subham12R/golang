@@ -123,6 +123,50 @@ func (s *SeatStore) GetScreenByID(screenID string) (*models.Screen, error) {
 	return screen, nil
 }
 
+func (s *SeatStore) ListMovies() []*models.Movie {
+	s.RLock()
+	defer s.RUnlock()
+
+	movies := make([]*models.Movie, 0, len(s.Movies))
+	for _, movie := range s.Movies {
+		movies = append(movies, movie)
+	}
+
+	return movies
+}
+
+func (s *SeatStore) GetMovieByID(movieID string) (*models.Movie, error) {
+	s.RLock()
+	defer s.RUnlock()
+
+	movie, ok := s.Movies[movieID]
+	if !ok {
+		return nil, fmt.Errorf("movie %s not found", movieID)
+	}
+
+	return movie, nil
+}
+
+func (s *SeatStore) GetShowsForMovie(movieID string, date time.Time) []*models.Show {
+	s.RLock()
+	defer s.RUnlock()
+
+	var shows []*models.Show
+	for _, show := range s.Shows[movieID] {
+		if sameDay(show.StartTime, date) {
+			shows = append(shows, show)
+		}
+	}
+
+	return shows
+}
+
+func sameDay(a, b time.Time) bool {
+	ay, am, ad := a.Date()
+	by, bm, bd := b.Date()
+	return ay == by && am == bm && ad == bd
+}
+
 func (s *SeatStore) GetBookingByID(bookingID string) (*models.Booking, error) {
 	s.RLock()
 	defer s.RUnlock()

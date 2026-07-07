@@ -1,0 +1,48 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - heading "Available Movies" [level=1] [ref=e5]
+    - generic [ref=e7]:
+      - generic [ref=e9]:
+        - img "Inception" [ref=e11]
+        - generic [ref=e13]:
+          - generic [ref=e14]:
+            - heading "Inception" [level=2] [ref=e15]
+            - paragraph [ref=e16]: SCR-1 | UA13+ | English
+          - button "Book Ticket" [ref=e17] [cursor=pointer]
+      - generic [ref=e19]:
+        - img "Interstellar" [ref=e21]
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - heading "Interstellar" [level=2] [ref=e25]
+            - paragraph [ref=e26]: SCR-2 | U | English
+          - button "Book Ticket" [ref=e27] [cursor=pointer]
+      - generic [ref=e29]:
+        - img "The Dark Knight" [ref=e31]
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - heading "The Dark Knight" [level=2] [ref=e35]
+            - paragraph [ref=e36]: SCR-3 | UA16+ | English
+          - button "Book Ticket" [ref=e37] [cursor=pointer]
+      - generic [ref=e39]:
+        - 'img "Dune: Part Two" [ref=e41]'
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - 'heading "Dune: Part Two" [level=2] [ref=e45]'
+            - paragraph [ref=e46]: SCR-1 | UA13+ | English
+          - button "Book Ticket" [ref=e47] [cursor=pointer]
+      - generic [ref=e49]:
+        - img "Oppenheimer" [ref=e51]
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - heading "Oppenheimer" [level=2] [ref=e55]
+            - paragraph [ref=e56]: SCR-2 | A | English
+          - button "Book Ticket" [ref=e57] [cursor=pointer]
+      - generic [ref=e59]:
+        - img "Parasite" [ref=e61]
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - heading "Parasite" [level=2] [ref=e65]
+            - paragraph [ref=e66]: SCR-3 | UA16+ | Korean
+          - button "Book Ticket" [ref=e67] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e73] [cursor=pointer]:
+    - img [ref=e74]

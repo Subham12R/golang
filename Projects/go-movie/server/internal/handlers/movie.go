@@ -5,6 +5,9 @@ import (
 	"go-movie-server/internal/services"
 	"go-movie-server/internal/store"
 	"net/http"
+	"time"
+
+	"github.com/go-chi/chi/v5"
 )
 
 type MovieHandler struct {
@@ -17,18 +20,49 @@ func NewMovieHandler(store *store.SeatStore, bookingService *services.BookingSer
 }
 
 func (h *MovieHandler) GetMovies(w http.ResponseWriter, r *http.Request) {
-	movies := []struct {
-		ID       string `json:"id"`
-		Title    string `json:"title"`
-		Genre    string `json:"genre"`
-		Duration int    `json:"duration"`
-	}{
-		{"1", "Inception", "Sci-Fi", 148},
-		{"2", "The Matrix", "Action", 136},
-		{"3", "Interstellar", "Sci-Fi", 169},
-	}
+	movies := h.store.ListMovies()
 
 	response, _ := json.MarshalIndent(movies, "", "  ")
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(response)
+}
+
+func (h *MovieHandler) GetShowtimes(w http.ResponseWriter, r *http.Request) {
+	movieID := chi.URLParam(r, "movieID")
+	dateStr := r.URL.Query().Get("date")
+	if movieID == "" || dateStr == "" {
+		http.Error(w, `{"error": "movieID and date are required"}`, http.StatusBadRequest)
+		return
+	}
+
+	date, err := time.Parse(time.RFC3339, dateStr)
+	if err != nil {
+		date, err = time.Parse("2006-01-02", dateStr)
+		if err != nil {
+			http.Error(w, `{"error": "invalid date"}`, http.StatusBadRequest)
+			return
+		}
+	}
+
+	shows := h.store.GetShowsForMovie(movieID, date)
+
+	type showResponse struct {
+		ID     string `json:"id"`
+		Time   string `json:"time"`
+		Screen string `json:"screen"`
+	}
+
+	resp := make([]showResponse, 0, len(shows))
+	for _, show := range shows {
+		resp = append(resp, showResponse{
+			ID:     show.ID,
+			Time:   show.StartTime.Format("3:04 PM"),
+			Screen: show.ScreenID,
+		})
+	}
+
+	response, _ := json.MarshalIndent(resp, "", "  ")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(response)

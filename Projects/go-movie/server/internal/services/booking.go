@@ -38,7 +38,7 @@ func (s* BookingService) Book(req BookingRequest) (*models.Booking, error) {
 		return nil, fmt.Errorf("failed to book: %w", err)
 	}
 
-	booking, err := s.store.BookSeat(req.SeatID, req.ScreenID, req.ShowID, req.UserID)
+	booking, err := s.store.BookSeat(req.ScreenID, req.SeatID, req.ShowID, req.UserID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to book: %w", err)
 	}

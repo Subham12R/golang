@@ -3,18 +3,22 @@ package models
 import "time"
 
 type Movie struct {
-	ID       string  `json:"id"`
-	Title    string  `json:"title"`
-	Genre    string  `json:"genre"`
-	Duration int     `json:"duration"`
-	Rating   float64 `json:"rating"`
+	ID          string  `json:"id"`
+	Title       string  `json:"title"`
+	Genre       string  `json:"genre"`
+	Duration    int     `json:"duration"`
+	Rating      float64 `json:"rating"`
+	Poster      string  `json:"poster"`
+	Screen      string  `json:"screen"`
+	Certificate string  `json:"certificate"`
+	Language    string  `json:"language"`
 }
 
 type Show struct {
 	ID        string    `json:"id"`
 	MovieID   string    `json:"movie_id"`
 	StartTime time.Time `json:"time"`
-	TheaterID string    `json:"theater_id"`
+	ScreenID  string    `json:"screen_id"`
 }
 
 type SeatStatus string

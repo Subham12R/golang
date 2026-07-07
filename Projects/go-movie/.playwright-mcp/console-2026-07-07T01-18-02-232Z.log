@@ -1,0 +1,8 @@
+[     135ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js:2477
+[     203ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js:2477
+[     475ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fplacehold.co%2F400x600%2F1a1a1a%2Fffffff%3Ftext%3DParasite&w=1080&q=75:0
+[     478ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fplacehold.co%2F400x600%2F1a1a1a%2Fffffff%3Ftext%3DInception&w=1080&q=75:0
+[     479ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fplacehold.co%2F400x600%2F1a1a1a%2Fffffff%3Ftext%3DDune%2BPart%2BTwo&w=1080&q=75:0
+[     483ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fplacehold.co%2F400x600%2F1a1a1a%2Fffffff%3Ftext%3DOppenheimer&w=1080&q=75:0
+[     484ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fplacehold.co%2F400x600%2F1a1a1a%2Fffffff%3Ftext%3DInterstellar&w=1080&q=75:0
+[     484ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fplacehold.co%2F400x600%2F1a1a1a%2Fffffff%3Ftext%3DThe%2BDark%2BKnight&w=1080&q=75:0
